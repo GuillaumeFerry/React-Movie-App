@@ -11,8 +11,8 @@ const App = () => {
     const [movies, setMovies] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
-    const getMovieRequest = async () => {
-        const url = `http://www.omdbapi.com/?s=star wars&apikey=${process.env.REACT_APP_API_KEY}`
+    const getMovieRequest = async (searchValue) => {
+        const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_API_KEY}`
 
         try {
             const response = await axios.get(url);
@@ -27,8 +27,8 @@ const App = () => {
     }
 
     useEffect(() => {
-        getMovieRequest();
-    }, [])
+        getMovieRequest(searchValue);
+    }, [searchValue])
 
     return (
         <div className='container-fluid movie-app'>
