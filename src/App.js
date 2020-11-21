@@ -12,7 +12,7 @@ const App = () => {
                 <p>{movies[0].Title}</p>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default App;
