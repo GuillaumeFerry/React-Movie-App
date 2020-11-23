@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 // import moviesDb from './data.js';
 import MovieList from './components/MovieList';
 import MovieListHeading from './components/MovieListHeading';
 import SearchBox from './components/SearchBox';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import AddFavourites from './components/AddFavourites';
 
 const App = () => {
     const [movies, setMovies] = useState([]);
@@ -37,7 +38,7 @@ const App = () => {
                 <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             </div>
             <div className='row'>
-                <MovieList movies={movies} />
+                <MovieList movies={movies} favouriteComponent={AddFavourites} />
             </div>
         </div>
     );
