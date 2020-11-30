@@ -33,7 +33,14 @@ const App = () => {
         const newFavouriteList = [...favourites, movie];
         setFavourites(newFavouriteList);
     };
-    
+
+    const removeFavouriteMovie = (movie) => {
+        const newFavouriteList = favourites.filter(
+            (favourite) => favourite.imdbID !== movie.imdbID
+        );
+        setFavourites(newFavouriteList);
+    };
+
 
     useEffect(() => {
         getMovieRequest(searchValue);
@@ -59,6 +66,7 @@ const App = () => {
                 <MovieList
                     movies={favourites}
                     favouriteComponent={RemoveFavourites}
+                    handleFavouritesClick={removeFavouriteMovie}
                 />
             </div>
         </div>
