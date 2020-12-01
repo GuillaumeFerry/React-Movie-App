@@ -29,13 +29,35 @@ const App = () => {
         }
     };
 
+    useEffect(() => {
+        getMovieRequest(searchValue);
+    }, [searchValue]);
+
+    useEffect(() => {
+        const movieFavourite = JSON.parse(
+            localStorage.getItem('react-movie-app-favourites')
+        );
+        setFavourites(movieFavourite || []); /* [] = if LS is null */
+    }, []);
+
+    const saveToLocalStorage = (items) => {
+        localStorage.setItem(
+            'react-movie-app-favourites', JSON.stringify(items)
+        );
+    };
+
     const addFavouriteMovie = (movie) => {
         const newFavouriteList = [...favourites, movie];
-        
+        const isAlreadyFavourite = favourites.some(
+            favourite => favourite.imdbID === movie.imdbID
+        );
         // check if movie already in favourites
-        favourites.some(favourite => favourite.imdbID === movie.imdbID)
-        ? console.log("Already in favourites!")
-        : setFavourites(newFavouriteList)
+        if (isAlreadyFavourite) {
+            console.log("Already in favourites!");
+        } else {
+            setFavourites(newFavouriteList);
+            saveToLocalStorage(newFavouriteList);
+        };
     };
 
     const removeFavouriteMovie = (movie) => {
@@ -43,12 +65,8 @@ const App = () => {
             (favourite) => favourite.imdbID !== movie.imdbID
         );
         setFavourites(newFavouriteList);
+        saveToLocalStorage(newFavouriteList);
     };
-
-
-    useEffect(() => {
-        getMovieRequest(searchValue);
-    }, [searchValue]);
 
     return (
         <div className='container-fluid movie-app'>
