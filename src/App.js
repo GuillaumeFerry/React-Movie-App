@@ -31,7 +31,11 @@ const App = () => {
 
     const addFavouriteMovie = (movie) => {
         const newFavouriteList = [...favourites, movie];
-        setFavourites(newFavouriteList);
+        
+        // check if movie already in favourites
+        favourites.some(favourite => favourite.imdbID === movie.imdbID)
+        ? console.log("Already in favourites!")
+        : setFavourites(newFavouriteList)
     };
 
     const removeFavouriteMovie = (movie) => {
